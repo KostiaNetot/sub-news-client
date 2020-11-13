@@ -1,38 +1,91 @@
-.App {
-  text-align: center;
+.ui.header.header-1 {
+  padding-left: 20px;
+  padding-top: 16px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.ui.app-menu.menu {
+  margin-bottom: 14px;
+  position: relative;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.ui.app-menu.menu .admin-link {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.ui.fluid.card.news-list-item {
+  margin-bottom: 8px;
+  cursor: pointer;
 }
 
-.App-link {
-  color: #61dafb;
+.ui.fluid.card.news-list-item:hover {
+  box-shadow: 0 0 11px rgba(33,33,33,.2);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.ui.fluid.card.news-list-item .description {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ui.fluid.card.news-list-item .icon {
+  margin-left: 16px;
+}
+
+.ui.header.news-header .sub {
+  margin-top: 8px;
+}
+
+.ui.header.news-header .sub i:nth-child(2) {
+  margin-left: 14px;
+}
+.label-categ-wrapper {
+  margin-top: 12px;
+}
+
+.ui.container.admin-container {
+  min-height: calc(100vh - 140px);
+}
+
+.ui.container.admin-container form {
+  width: 400px;
+  margin: 0 auto;
+}
+
+.ui.table .categ-list-item {
+  position: relative;
+  cursor: pointer;
+}
+
+.ui.table .categ-list-item .save-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 60px;
+  cursor: pointer;
+}
+
+.ui.table .categ-list-item .delete-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0;
+  cursor: pointer;
+}
+
+.ui.table .categ-list-item .input-wrapper {
+  position: relative;
+}
+
+.ui.table .categ-list-item .input-wrapper .close {
+  position: absolute;
+  top: -9px;
+  left: -9px;
+  background-color: yellow;
+  line-height: 1;
+}
+
+.ui.form input.new-categ-input {
+  margin-bottom: 12px;
 }

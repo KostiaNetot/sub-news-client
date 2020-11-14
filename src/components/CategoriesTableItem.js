@@ -1,8 +1,15 @@
 import React, {useState} from 'react';
+import { useSelector, useDispatch } from "react-redux";
+import axios from 'axios';
+import { fetchData } from "../redux/actions";
 import {Label, Table, Input} from "semantic-ui-react";
 
 const CategoriesTableItem = ({ category }) => {
+
   const [ isClicked, setIsClicked ] = useState(false);
+  const [ editedName, setEditedName ] = useState(category.name);
+  const { news: newsList } = useSelector(state => state);
+  const dispatch = useDispatch();
 
   const showEditInput = (e) => {
     setIsClicked(true);
@@ -13,14 +20,65 @@ const CategoriesTableItem = ({ category }) => {
     setIsClicked(false);
   };
 
-  const saveCategory = (e) => {
+  const updateCategoriesInNewsList = (replaceCateg = null) => {
+    //replace in news list
+    newsList.forEach(news => {
+      const index = news.categories.indexOf(category.name);
+      if (index !== -1) {
+        replaceCateg ? news.categories.splice(index, 1, editedName)
+          : news.categories.splice(index, 1);
+        axios.put(`http://localhost:5000/news/upd/${news._id}`, { categories: news.categories })
+          .then((res) => {
+            console.log(res.data);
+          })
+          .catch(err => console.log(err));
+      }
+    });
+    //remove category from news list
+    updateCategoriesInNewsList();
+  };
+
+  const saveEditedCategory = (e) => {
     e.stopPropagation();
-    console.log('saveCategory');
+
+    if (editedName !== category.name) {
+      //replace in news list
+      updateCategoriesInNewsList(true);
+      //replace category
+      axios.put(`http://localhost:5000/categories/upd/${category._id}`, { name: editedName })
+        .then(() => {
+          dispatch(fetchData());
+          setIsClicked(false);
+        })
+        .catch(err => console.log(err));
+    }
   };
 
   const removeCategory = (e) => {
     e.stopPropagation();
-    console.log('removeCategory');
+    const confirmed = window.confirm('Delete category?');
+    if (confirmed) {
+      //remove categoru from news list
+      // newsList.forEach(news => {
+      //   const index = news.categories.indexOf(category.name);
+      //   if (index !== -1) {
+      //     news.categories.splice(index, 1);
+      //     axios.put(`http://localhost:5000/news/upd/${news._id}`, { categories: news.categories })
+      //       .then((res) => {
+      //         console.log(res.data);
+      //       })
+      //       .catch(err => console.log(err));
+      //   }
+      // });
+
+      //remove category
+      axios.delete(`http://localhost:5000/categories/${category._id}`)
+        .then((res) => {
+          dispatch(fetchData());
+          return res;
+        })
+        .catch(err => console.log(err));
+    }
   };
 
   return (
@@ -30,11 +88,15 @@ const CategoriesTableItem = ({ category }) => {
           {
             !isClicked
             ? category.name
-            : <div className='input-wrapper'><Input value={category.name} size='mini' />
+            : <div className='input-wrapper'>
+                <Input value={editedName}
+                  onChange={(e) => { setEditedName(e.target.value) }} size='mini' />
                 <span onClick={hideEditInput} className='close'>x</span>
               </div>
           }
-          <Label onClick={saveCategory} color='green' horizontal className='save-btn'>save</Label>
+          {
+            isClicked ? <Label onClick={saveEditedCategory} color='green' horizontal className='save-btn'>save</Label> : null
+          }
           <Label onClick={removeCategory} color='red' horizontal className='delete-btn'>delete</Label>
         </Table.Cell>
       </Table.Row>

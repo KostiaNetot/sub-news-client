@@ -3,9 +3,6 @@ import { Container, Grid } from "semantic-ui-react";
 import CategoriesTable from "./CategotiesTable";
 
 const AdminPanel = () => {
-
-  const test = 'test';
-
   return (
     <>
       <Grid celled>

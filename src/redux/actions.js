@@ -33,7 +33,10 @@ export const fetchData = () => {
     ])
       .then(axios.spread((resCategs, resNews) => {
         dispatch(fetchNewsSuccess([resCategs.data, resNews.data]));
-      }));
+      }))
+      .catch(err => {
+        dispatch(fetchNewsError(err));
+      });
   }
 };
 

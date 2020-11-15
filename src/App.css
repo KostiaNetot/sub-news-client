@@ -86,6 +86,27 @@
   line-height: 1;
 }
 
+.ui.table .edit-news-btn,
+.ui.table .delete-news-btn {
+  cursor: pointer;
+}
+
 .ui.form input.new-categ-input {
   margin-bottom: 12px;
+}
+
+.ui.form textarea.news-text {
+  resize: none;
+  height: 114px;
+  margin-bottom: 12px;
+}
+
+.ui.table .btn-cell {
+  display: flex;
+}
+
+
+.checkbox-wrapper .checkbox label {
+  margin-right: 18px;
+  padding-left: 22px;
 }

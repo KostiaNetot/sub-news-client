@@ -26,6 +26,7 @@ const CategoryCreateForm = () => {
 
   return (
     <Modal
+      closeOnDimmerClick={false}
       onClose={() => setOpen(false)}
       onOpen={() => setOpen(true)}
       open={open}
@@ -47,7 +48,6 @@ const CategoryCreateForm = () => {
             <Button
               type='submit'
               content="Create"
-              // onClick={() => setOpen(false)}
               positive
             />
           </Modal.Actions>

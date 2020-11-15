@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {useSelector} from "react-redux";
-import {Card, Container, Header, Icon, Loader, Segment, Label} from "semantic-ui-react";
+import { Container, Header, Icon, Loader, Segment, Label} from "semantic-ui-react";
 
 const NewsPage = (props) => {
   const { news: allNews } = useSelector(state => state);

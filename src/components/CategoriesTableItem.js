@@ -21,7 +21,6 @@ const CategoriesTableItem = ({ category }) => {
   };
 
   const updateCategoriesInNewsList = (replaceCateg = null) => {
-    //replace in news list
     newsList.forEach(news => {
       const index = news.categories.indexOf(category.name);
       if (index !== -1) {
@@ -29,23 +28,20 @@ const CategoriesTableItem = ({ category }) => {
           : news.categories.splice(index, 1);
         axios.put(`http://localhost:5000/news/upd/${news._id}`, { categories: news.categories })
           .then((res) => {
-            console.log(res.data);
+            return res;
           })
           .catch(err => console.log(err));
       }
     });
-    //remove category from news list
-    updateCategoriesInNewsList();
   };
 
   const saveEditedCategory = (e) => {
     e.stopPropagation();
-
     if (editedName !== category.name) {
       //replace in news list
       updateCategoriesInNewsList(true);
       //replace category
-      axios.put(`http://localhost:5000/categories/upd/${category._id}`, { name: editedName })
+      axios.put(`http://localhost:5000/categories/upd/${category._id}`, { name: editedName.toLowerCase() })
         .then(() => {
           dispatch(fetchData());
           setIsClicked(false);
@@ -58,19 +54,8 @@ const CategoriesTableItem = ({ category }) => {
     e.stopPropagation();
     const confirmed = window.confirm('Delete category?');
     if (confirmed) {
-      //remove categoru from news list
-      // newsList.forEach(news => {
-      //   const index = news.categories.indexOf(category.name);
-      //   if (index !== -1) {
-      //     news.categories.splice(index, 1);
-      //     axios.put(`http://localhost:5000/news/upd/${news._id}`, { categories: news.categories })
-      //       .then((res) => {
-      //         console.log(res.data);
-      //       })
-      //       .catch(err => console.log(err));
-      //   }
-      // });
-
+      //remove categories from news list
+      updateCategoriesInNewsList();
       //remove category
       axios.delete(`http://localhost:5000/categories/${category._id}`)
         .then((res) => {

@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from "react-redux";
-import { Form, Button, Card } from "semantic-ui-react";
+import { Form, Button } from "semantic-ui-react";
 import { setAuthorization } from "../redux/actions";
 
 const AuthForm = () => {
